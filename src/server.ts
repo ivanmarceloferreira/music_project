@@ -1,20 +1,11 @@
 import express from 'express';
-import { Sequelize } from '@sequelize/core';
-import { PostgresDialect } from '@sequelize/postgres';
+import { sequelize, connectToDB } from './database/sequelize';
+import router from './routes/music';
 
 const app = express();
 
-const sequelize = new Sequelize({
-  dialect: PostgresDialect,
-  database: 'musicas',
-  user: 'postgres',
-  password: '123456',
-  host: 'localhost',
-  port: 5432,
-  clientMinMessages: 'notice',
-});
-
 sequelize.authenticate();
+connectToDB();
 
 app.get('/', (req, res) => {
     res.send('Hello World avengers assemble!');
@@ -23,6 +14,8 @@ app.get('/', (req, res) => {
 app.post('/outra', (req, res) => {
     res.send('Hello World na outra rota!');
 });
+
+app.use(router);
 
 app.listen(3000, 
     () => console.log("Rodando em <http://localhost:3000>")
