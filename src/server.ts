@@ -1,8 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 import { sequelize, connectToDB } from './database/sequelize';
 import router from './routes/music';
 
 const app = express();
+
+app.use(express.json());
 
 sequelize.authenticate();
 connectToDB();
