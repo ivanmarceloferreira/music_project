@@ -19,7 +19,8 @@ Music.init(
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     nome: {
       type: DataTypes.STRING

@@ -15,7 +15,7 @@ export async function connectToDB() {
 
 		console.log("Conectado ao banco de dados com sucesso")
 
-		await sequelize.sync({ force: true }); // Cria as tabelas baseado nos schemas
+		await sequelize.sync(); // Cria as tabelas baseado nos schemas
 
 		console.log("Tabelas sincronizadas com sucesso");
 
