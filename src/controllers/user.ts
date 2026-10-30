@@ -1,0 +1,58 @@
+import { Request, Response } from "express";
+import { User } from "../entities/user.model";
+import bcrypt from "bcrypt";
+
+// Buscar todos
+export async function listAllUsers(req: Request, res: Response) {
+	const users = await User.findAll();
+
+    return res.json(users);
+}
+
+// Buscar por ID
+export async function listById(req: Request, res: Response) {
+    const id: number = Number(req.params.id);
+    const user = await User.findByPk(id);
+
+    if (!user) {
+        return res.status(400).json("User não encontrado");
+    }
+
+    return res.json(user);
+}
+
+// Criar uma música
+export async function createUser(req: Request, res: Response) {
+    console.log('body', req.body);
+
+    // validações
+    // if (req.body.nome = "") {
+        
+    // }
+
+    const salt = Number(process.env.BCRYPT_SALT_ROUNDS) || 10;
+    const passwordHashed = await bcrypt.hash(req.body.password, salt);
+
+    const user: User = await User.create({
+        nome: req.body.nome,
+        email: req.body.email,
+        password: passwordHashed,
+    });
+    
+    res.status(200).json(user);
+}
+
+// Deletar uma música
+export async function deleteUser(req: Request, res: Response) {
+
+    const id: number = Number(req.params.id);
+    const user = await User.findByPk(id);
+
+    if (!user) {
+        return res.status(400).json("User não encontrado");
+    }
+
+    user.destroy();
+    return res.status(204).send();
+
+}

@@ -1,6 +1,10 @@
 import express, { json } from 'express';
 import { sequelize, connectToDB } from './database/sequelize';
-import router from './routes/music';
+import musicRouter from './routes/music';
+import userRouter from './routes/user';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -17,7 +21,8 @@ app.post('/outra', (req, res) => {
     res.send('Hello World na outra rota!');
 });
 
-app.use(router);
+app.use(musicRouter);
+app.use(userRouter);
 
 app.listen(3000, 
     () => console.log("Rodando em <http://localhost:3000>")

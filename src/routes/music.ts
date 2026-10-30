@@ -6,12 +6,12 @@ import {
 	listById
 } from "../controllers/music";
 
-const router = Router();
+const musicRouter = Router();
 
-router.get("/musics", listAllMusics);
-router.post("/musics", createMusic);
+musicRouter.get("/musics", listAllMusics);
+musicRouter.post("/musics", createMusic);
 
-router.get("/musics/:id", listById);
-router.delete("/musics/:id", deleteMusic);
+musicRouter.get("/musics/:id", listById);
+musicRouter.delete("/musics/:id", deleteMusic);
 
-export default router;
+export default musicRouter;
